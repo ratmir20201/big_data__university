@@ -1,0 +1,76 @@
+=== Шаг 1. Загрузка данных ===
+    student_id group  study_hours  attendance  sleep_hours  exam_score
+0            1     A         12.0        95.0          7.5        88.0
+1            2     A          8.0        80.0          6.5        72.0
+2            3     B         15.0        98.0          8.0        94.0
+3            4     B          5.0        60.0          5.5        55.0
+4            5     A         10.0        85.0          7.0        79.0
+5            6     C          NaN        90.0          7.0        81.0
+6            7     C          3.0        50.0          5.0        48.0
+7            8     B         14.0        92.0          7.5        90.0
+8            9     A          9.0         NaN          6.0        70.0
+9           10     C          7.0        75.0          6.5         NaN
+10          11     B         11.0        88.0          7.0        83.0
+11          12     C          6.0        65.0          5.5        60.0
+12          13     A         13.0        96.0          8.0        91.0
+13          13     A         13.0        96.0          8.0        91.0
+14          14   NaN          4.0        55.0          5.0        52.0
+Размер таблицы: (15, 6)
+
+=== Шаг 2. Первичный осмотр ===
+<class 'pandas.DataFrame'>
+RangeIndex: 15 entries, 0 to 14
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   student_id   15 non-null     int64  
+ 1   group        14 non-null     str    
+ 2   study_hours  14 non-null     float64
+ 3   attendance   14 non-null     float64
+ 4   sleep_hours  15 non-null     float64
+ 5   exam_score   14 non-null     float64
+dtypes: float64(4), int64(1), str(1)
+memory usage: 852.0 bytes
+Пропуски по столбцам:
+student_id     0
+group          1
+study_hours    1
+attendance     1
+sleep_hours    0
+exam_score     1
+dtype: int64
+Количество полных дубликатов: 1
+
+=== Шаг 3. Очистка данных ===
+После удаления дубликатов: (14, 6)
+Пропуски в study_hours заменены медианой: 9.0
+Пропуски в attendance заменены медианой: 85.0
+Пропуски в exam_score заменены медианой: 79.0
+Пропуски в group заменены модой: A
+Пропусков осталось: 0
+Размер таблицы после очистки: (14, 6)
+
+=== Шаг 4. Статистика ===
+             среднее  медиана  мода  ст.откл.
+study_hours     9.00     9.00   9.0      3.74
+attendance     79.57    85.00  85.0     16.02
+sleep_hours     6.57     6.75   7.0      1.04
+exam_score     74.43    79.00  79.0     15.33
+Средний балл по группам:
+group
+A    75.33
+B    80.50
+C    67.00
+Name: exam_score, dtype: float64
+
+=== Шаг 5. Корреляция ===
+             study_hours  attendance  sleep_hours  exam_score
+study_hours        1.000       0.947        0.953       0.951
+attendance         0.947       1.000        0.951       0.964
+sleep_hours        0.953       0.951        1.000       0.982
+exam_score         0.951       0.964        0.982       1.000
+Корреляция study_hours и exam_score: 0.951
+Линейная регрессия: exam_score = 3.90 * study_hours + 39.37
+
+=== Шаг 6. Графики ===
+Графики и очищенный файл сохранены в папку output
